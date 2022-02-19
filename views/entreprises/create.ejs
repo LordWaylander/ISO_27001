@@ -1,0 +1,15 @@
+<%- include('../header'); -%>
+<body>
+    <%- include('../navigation'); -%>
+    <main>
+        CREATE DES ENTREPRISES
+        <form class="w-full" method="post">
+            <input type="text" name="nom_entreprise" value="" placeholder="Nom entreprise" required>
+            <input type="text" name="adresse" value="" placeholder="Adresse entreprise" required>
+            <input type="text" name="code_postal" value="" placeholder="Code postal entreprise" required>
+            <input type="text" name="ville" value="" placeholder="Ville entreprise" required>
+            <input type="submit" value="Envoyer">
+        </form>
+    </main>
+</body>
+<%- include('../footer'); -%>

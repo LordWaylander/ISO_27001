@@ -1,0 +1,79 @@
+<%- include('../header') -%>
+    <body class="bg-gris">
+        <main class="flex justify-center items-center h-screen mx-96">
+            <div class="w-full">
+                <div class="flex justify-center items-center">
+                    <img class="w-max "src="images/itsense.png" alt="bird-itsense">
+                </div>
+                <% if (error) { %>
+                    <div class="flex justify-center text-red-600">
+                        <p><%= error %></p>
+                    </div>
+                <% } %>
+                <% if(success) { %>
+                    <div class="flex justify-center text-green-600">
+                        <p><%= success %></p>
+                    </div>
+                <% } %>
+                <div class="flex justify-center h-96">
+
+                    <div class="rounded-lg  w-max lg:w-full bg-white p-6 m-0">
+                        <div class="h-full flex justify-center items-center flex-col">
+                            <div class="mb-5">
+                                <div class="flex justify-center">
+                                    <span class="font-semibold">ITSENSE</span>
+                                </div>
+                                <div class="flex justify-center">
+                                    <span class="font-semibold">MAKE YOUR SYSTEM SAFER</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-center mb-5">
+                                <span class="">En cours de certification ISO27001 et HDS</span>
+                            </div>
+                            <div class="flex justify-center">
+                                <img src="images/update.png" alt="update">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg w-max lg:w-full bg-blue p-6 m-0">
+                        <div class="h-full flex justify-center items-center flex-col">
+                            <div class="flex justify-center text-white font-bold">
+                                <span class="border-b">CONNEXION</span>
+                            </div>
+                            <form class="mt-5 w-full" method="post">
+                                <div class="grid w-full">
+                                    <div class="flex w-full bg-white rounded-md p-2">
+                                        <img src="images/tete.png" alt="tete">
+                                        <input type="email" class="ml-5 w-full" name="email" placeholder="Adresse E-mail" required>
+                                    </div>
+                                    <div class="flex w-full bg-white rounded-md p-2 mt-5">
+                                        <img src="images/cadenas.png" alt="cadenas">
+                                        <input type="password" class="ml-5 w-full" name="password" placeholder="Mot de passe" required>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center mt-3">
+                                    <div class="flex justify-around w-full">
+                                        <div class="">
+                                            <input type="checkbox" id="rememberMe">
+                                            <label class="text-white" for="rememberMe">
+                                                Se souvenir de moi
+                                            </label>
+                                        </div>
+                                        <a href="/forgotPwd" class="text-decoration-none">
+                                            <span class="text-white">Mot de passe oublié ?</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="flex justify-center mt-5">
+                                    <button type="submit" class="p-2 h-full rounded-md bg-white text-gray-600 font-bold">Se connecter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </body>
+<%- include('../footer') -%>

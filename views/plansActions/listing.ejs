@@ -1,0 +1,131 @@
+<%- include('../header'); -%>
+<body onload="init()">
+    <%- include('../navigation'); -%>
+    <main class="mx-6">
+        <div class="flex justify-between mt-6">
+            <p class="flex items-center font-bold">Liste des plans d'action</p>
+            <button class="" type="button" name="button" onclick="openModalCreatePlanAction()">
+                <div class="flex flex-row items-center">
+                    <img class="mr-3 w-8" src="/images/plus.png" alt="ajout">
+                    <p>Nouvelle action</p>
+                </div>
+            </button>
+        </div>
+        <div class="flex justify-start mb-12">
+            Etat de l’action : 0% rien // 25% Action programmée // 50% Action en cours // 75% Action terminée // 100% Action validée
+        </div>
+        <% if (error) { %>
+            <div class="text-red-600">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+        <% if(success) { %>
+            <div class="text-green-600">
+                <p><%= success %></p>
+            </div>
+        <% } %>
+        <div class="">
+            <table class="table-fixed w-full">
+                <thead>
+                    <tr>
+                        <th class="text-left">DATE</th>
+                        <th class="text-left">Déclencheur</th>
+                        <th class="text-left">Assignation</th>
+                        <th class="text-left">Action</th>
+                        <th class="text-left">Réel / Assigné</th>
+                        <th class="text-left">Date prévue</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+            <% for(var i=0; i < plansAction.length; i++ ){ %>
+                <% if(plansAction[i].etat == 0){ %>
+                    <tr class="bg-color-etat-0 h-16 min-h-full">
+                <% }else if(plansAction[i].etat == 25){ %>
+                    <tr class="bg-color-etat-25 h-16 min-h-full">
+                <% }else if(plansAction[i].etat == 50){ %>
+                    <tr class="bg-color-etat-50 h-16 min-h-full">
+                <% }else if(plansAction[i].etat == 75){ %>
+                    <tr class="bg-color-etat-75 h-16 min-h-full">
+                <% }else if(plansAction[i].etat == 100){ %>
+                    <tr class="bg-color-etat-100 h-16 min-h-full">
+                <% } %>
+                    <td> <%= plansAction[i].dateCreationEu %> </td>
+                    <td> <%= plansAction[i].planActions_processus.processus_relaisUser.nom_user %> </td>
+                    <td> <%= plansAction[i].planActions_assignationUser.nom_user %> </td>
+                    <td> <%= plansAction[i].action %> </td>
+                    <td> <%= plansAction[i].etat %>% </td>
+                    <td> <%= plansAction[i].dateFinEu %> </td>
+                    <td>
+                        <div class="flex justify-end pr-4">
+                            <button type="button" name="button" onclick="openModalViewPlanAction(<%= plansAction[i].id_planAction %>)"><img class="h-12" src="/images/view.png" alt=""></button>
+                            <button type="button" name="button" onclick="openModalUpdatePlanAction(<%= plansAction[i].id_planAction %>)"><img class="h-7" src="/images/edit.png" alt=""></button>
+                            <button type="button" name="button" onclick="openModalDeletePlanAction(<%= plansAction[i].id_planAction %>)"><img class="h-8" src="/images/delete.png" alt=""></button>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="h-4"></tr>
+            <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <!-- -------------------- MODAL DE SUPPRESSION ------------------------------>
+    <div id="modalDelete" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div id="modalDeleteBody" class="">
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+    <!-- -------------------- MODAL DE VIEW ------------------------------>
+    <div id="modalView" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-blue-nav overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="flex justify-end mt-2 mr-2">
+                        <button type="button" name="button" class="text-white font-bold" onclick="closeModalViewPlanAction()">X</button>
+                    </div>
+                    <div id="modalViewBody" class="m-5 flex justify-center">
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+    <!-- -------------------- MODAL UPDATE ------------------------------>
+    <div id="modalUpdate" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+            <div class="inline-block align-bottom bg-blue-nav overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="flex justify-end mt-2 mr-2">
+                    <button type="button" name="button" class="text-white font-bold" onclick="closeModalUpdatePlanAction()">X</button>
+                </div>
+                <div id="modalUpdateBody" class="m-5 flex justify-center">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+    <!-- -------------------- MODAL CREATE ------------------------------>
+    <div id="modalCreate" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-blue-nav overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="flex justify-end mt-2 mr-2">
+                        <button type="button" name="button" class="text-white font-bold" onclick="closeModalCreatePlanAction()">X</button>
+                    </div>
+                    <div id="modalCreateBody" class="m-5 flex justify-center">
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+</body>
+<%- include('../footer'); -%>

@@ -1,0 +1,32 @@
+<%- include('../header'); -%>
+<body>
+    <%- include('../navigation'); -%>
+    <main>
+        CREATION plan
+        <form class="w-full" method="post">
+            <input type="text" name="dateCreation" value="" placeholder="Date Création" required>
+            <input type="text" name="dateDebut" value="" placeholder="Date de début" required>
+            <input type="text" name="dateFin" value="" placeholder="Date de fin" required>
+            <input type="text" name="declencheur" value="" placeholder="Déclencheur" required>
+            <select class="" name="processus">
+                <option value="create_processus">Créer un processus</option>
+                <% for(var i=0; i < processus.length; i++ ){ %>
+                    <option value="<%= processus[i].id_processus %>"><%= processus[i].nom_processus %></option>
+                <% } %>
+            </select>
+            <input type="text" name="description" value="" placeholder="Description" required>
+            <input type="text" name="traitement_curatif" value="" placeholder="Traitement (facultatif)">
+            <input type="text" name="analyse_cause" value="" placeholder="Analyse de la cause" required>
+            <input type="text" name="action" value="" placeholder="Action" required>
+            <input type="text" name="commentaire" value="" placeholder="commentaire">
+            <select class="" name="etat">
+                    <option value="0">0%</option>
+                    <option value="25">25%</option>
+                    <option value="50">50%</option>
+                    <option value="75">75%</option>
+                    <option value="100">100%</option>
+            </select>
+            <input type="submit" value="Envoyer">
+        </form>
+    </main>
+</body>

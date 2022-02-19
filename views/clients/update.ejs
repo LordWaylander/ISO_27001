@@ -1,0 +1,24 @@
+<%- include('../header'); -%>
+<body>
+    <%- include('../navigation'); -%>
+    <main>
+        MODIFICATION client <%= clientuser.nom_user %>
+        <form class="w-full" method="post">
+            <input type="hidden" name="id_user" value=<%= clientuser.id_user %>>
+            <input type="text" name="username" value="<%= clientuser.nom_user %>" placeholder="Nom client" required>
+            <input type="email" name="email" value="<%= clientuser.email %>" placeholder="Email client" required>
+            <label for="">Role :</label>
+            <select class="" name="role">
+                <% for (var i = 0; i < roles.length; i++) { %>
+                    <% if(clientuser.users_role.role == roles[i].role) { %>
+                        <option value="<%= roles[i].id_role %>" selected><%= roles[i].role %></option>
+                    <% } else { %>
+                        <option value="<%= roles[i].id_role %>"><%= roles[i].role %></option>
+                    <% } %>
+                <% } %>
+            </select>
+            <input type="submit" value="Envoyer">
+        </form>
+    </main>
+</body>
+<%- include('../footer'); -%>

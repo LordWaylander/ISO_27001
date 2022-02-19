@@ -1,0 +1,51 @@
+<%- include('../header') -%>
+<body class="">
+    <%- include('../navigation'); -%>
+    <main class="flex justify-center items-center mx-96 h-full">
+        <div class="w-full">
+            <% if (error) { %>
+                <div class="flex justify-center text-red-600">
+                    <p><%= error %></p>
+                </div>
+            <% } %>
+            <% if(success) { %>
+                <div class="flex justify-center text-green-600">
+                    <p><%= success %></p>
+                </div>
+            <% } %>
+            <div class="flex justify-center">
+                <div class="rounded-lg w-max bg-blue p-6 m-0">
+                    <div class="h-full flex justify-center items-center flex-col">
+                        <div class="flex justify-center text-white font-bold">
+                            <span class="border-b">Créer un utilisateur</span>
+                        </div>
+                        <form class="mt-5 w-full" method="post">
+                            <div class="grid w-full">
+                                <div class="flex w-full bg-white rounded-md p-2">
+                                    <input type="texte" class="ml-5 w-full" name="username" placeholder="Nom" required>
+                                </div>
+                                <div class="flex w-full bg-white rounded-md p-2 mt-5">
+                                    <input type="email" class="ml-5 w-full" name="email" placeholder="Adresse E-mail" required>
+                                </div>
+                                <div class="mt-5 flex justify-center">
+                                    <label>Role :</label>
+                                </div>
+                                <div class="flex w-full bg-white rounded-md p-2">
+                                    <select class="w-full" name="role">
+                                        <option value="1">Admin</option>
+                                        <option value="2">Relais / Pilote</option>
+                                        <option value="3">Classique</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex justify-center mt-5">
+                                <button type="submit" class="p-2 h-full rounded-md bg-white text-gray-600 font-bold">Creer un utilisateur</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<%- include('../footer') -%>

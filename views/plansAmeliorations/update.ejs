@@ -1,0 +1,63 @@
+<%- include('../header'); -%>
+<body>
+    <%- include('../navigation'); -%>
+    <main>
+        MODIFICATION plan
+        <form class="w-full" method="post">
+            <input type="hidden" name="id_planAmelioration" value="<%= planAmelioration.id_planAction %>">
+            <input type="text" name="dateCreation" value="<%= planAmelioration.dateCreationEu %>" placeholder="Date Création" required>
+            <input type="text" name="dateDebut" value="<%= planAmelioration.dateDebutEu %>" placeholder="Date de début" required>
+            <input type="text" name="dateFin" value="<%= planAmelioration.dateFinEu %>" placeholder="Date de fin" required>
+            <input type="text" name="declencheur" value="<%= planAmelioration.declencheur %>" placeholder="Déclencheur" required>
+            <select class="" name="processus">
+                <option value="create_processus">Créer un processus</option>
+                <% for(var i=0; i < processus.length; i++ ){ %>
+                    <% if (processus[i].id_processus == planAmelioration.processus_id) { %>
+                        <option value="<%= processus[i].id_processus %>" selected><%= processus[i].nom_processus %></option>
+                    <% }else { %>
+                        <option value="<%= processus[i].id_processus %>"><%= processus[i].nom_processus %></option>
+                    <% } %>
+                <% } %>
+            </select>
+            <input type="text" name="description" value="<%= planAmelioration.description %>" placeholder="Description" required>
+            <input type="text" name="traitement_curatif" value="<%= planAmelioration.traitement_curatif %>" placeholder="Traitement (facultatif)">
+            <input type="text" name="analyse_cause" value="<%= planAmelioration.analyse_cause %>" placeholder="Analyse de la cause" required>
+            <input type="text" name="action" value="<%= planAmelioration.action %>" placeholder="Action" required>
+            <input type="text" name="commentaire" value="<%= planAmelioration.commentaire %>" placeholder="commentaire">
+            <select class="" name="etat">
+            <% if(planAmelioration.etat == 0) { %>
+                <option value="0" selected>0%</option>
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100">100%</option>
+            <% }else if (planAmelioration.etat == 25) { %>
+                <option value="0">0%</option>
+                <option value="25" selected>25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100">100%</option>
+            <% }else if (planAmelioration.etat == 50) { %>
+                <option value="0">0%</option>
+                <option value="25">25%</option>
+                <option value="50" selected>50%</option>
+                <option value="75">75%</option>
+                <option value="100">100%</option>
+            <% }else if (planAmelioration.etat == 75) { %>
+                <option value="0">0%</option>
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75" selected>75%</option>
+                <option value="100">100%</option>
+            <% }else if (planAmelioration.etat == 100) { %>
+                <option value="0">0%</option>
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+                <option value="75">75%</option>
+                <option value="100" selected>100%</option>
+            <% } %>
+            </select>
+            <input type="submit" value="Envoyer">
+        </form>
+    </main>
+</body>

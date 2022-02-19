@@ -1,0 +1,125 @@
+<%- include('../../header'); -%>
+    <%- include('../../navigation'); -%>
+    <main class="">
+        <% if (error) { %>
+            <div class="text-red-600">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+        <% if(success) { %>
+            <div class="text-green-600">
+                <p><%= success %></p>
+            </div>
+        <% } %>
+
+        <div class="mx-6 mt-5">
+            <div class="flex justify-end mb-12">
+                <button class="" type="button" name="button" onclick="openModalCreateIndicateur()">
+                    <div class="flex flex-row items-center">
+                        <img class="mr-3 w-8" src="/images/plus.png" alt="ajout">
+                        <p>Nouvel indicateur</p>
+                    </div>
+                </button>
+            </div>
+            <table class="w-full table-fixed">
+                <thead>
+                    <tr>
+                        <th class="text-left">PROCESSUS</th>
+                        <th class="text-left">PILOTE</th>
+                        <th class="text-left">INDICATEUR</th>
+                        <th class="text-left">OBJECTIF(S) CHIFFRÉS</th>
+                        <th class="text-left">NIVEAU DE RISQUE</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0; i < processus.length; i++ ){ %>
+                        <tr class="bg-gray-100 h-16 min-h-full">
+                            <td><%= processus[i].nom_processus %></td>
+                            <td><%= processus[i].processus_relaisUser.nom_user %></td>
+                            <td>
+                                <% for(var j=0; j < processus[i].processus_indicateurs.length; j++ ){ %>
+                                    <p><%= processus[i].processus_indicateurs[j].indicateur %></p>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% for(var j=0; j < processus[i].processus_objectifs.length; j++ ){ %>
+                                    <p><%= processus[i].processus_objectifs[j].objectif %></p>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% for(var j=0; j < processus[i].processus_objectifs.length; j++ ){ %>
+                                    <p><%= processus[i].processus_objectifs[j].objectifs_risques.risque %></p>
+                                <% } %>
+                            <td>
+                                <div class="flex justify-end pr-4">
+                                    <button type="button" name="button" onclick="openModalViewIndicateur(<%= processus[i].id_processus %>)"><img class="h-12" src="/images/view.png" alt=""></button>
+                                    <button type="button" name="button" onclick="openModalUpdateIndicateur(<%= processus[i].id_processus %>)"><img class="h-7" src="/images/edit.png" alt=""></button>
+                                    <button type="button" name="button" onclick="openModalDeleteIndicateur(<%= processus[i].id_processus %>)"><img class="h-8" src="/images/delete.png" alt=""></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="h-4"></tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <!-- -------------------- MODAL DE SUPPRESSION ------------------------------>
+    <div id="modalDelete" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div id="modalDeleteBody" class="">
+                    </div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+    <!-- -------------------- MODAL DE VIEW ------------------------------>
+    <div id="modalView" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-blue-nav overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="flex justify-end mt-2 mr-2">
+                        <button type="button" name="button" class="text-white font-bold" onclick="closeModalViewIndicateur()">X</button>
+                    </div>
+                    <div id="modalViewBody" class="m-5 flex justify-center">
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+    <!-- -------------------- MODAL UPDATE ------------------------------>
+    <div id="modalUpdate" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-blue-nav overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="flex justify-end mt-2 mr-2">
+                        <button type="button" name="button" class="text-white font-bold" onclick="closeModalUpdateIndicateur()">X</button>
+                    </div>
+                    <div id="modalUpdateBody" class="m-5 flex justify-center">
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+    <!-- -------------------- MODAL CREATE ------------------------------>
+    <div id="modalCreate" class="fixed z-10 inset-0 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+                <div class="inline-block align-bottom bg-blue-nav overflow-hidden transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                    <div class="flex justify-end mt-2 mr-2">
+                        <button type="button" name="button" class="text-white font-bold" onclick="closeModalCreateIndicateur()">X</button>
+                    </div>
+                    <div id="modalCreateBody" class="m-5 flex justify-center">
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------>
+<%- include('../../footer'); -%>

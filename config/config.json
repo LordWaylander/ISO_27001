@@ -1,0 +1,32 @@
+{
+  "development": {
+    "username": "xxxx",
+    "password": "xxxx",
+    "database": "iso",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "define": {
+        "timestamps": false
+    }
+  },
+  "test": {
+    "username": "xxxx",
+    "password": "xxxx",
+    "database": "iso",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "define": {
+        "timestamps": false
+    }
+  },
+  "production": {
+    "username": "xxxx",
+    "password": "xxxx",
+    "database": "iso",
+    "host": "127.0.0.1",
+    "dialect": "mariadb",
+    "define": {
+        "timestamps": false
+    }
+  }
+}

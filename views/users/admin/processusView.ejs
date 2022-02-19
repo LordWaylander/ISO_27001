@@ -1,0 +1,150 @@
+<%- include('../../header'); -%>
+<body onload="init()">
+    <%- include('../../navigation'); -%>
+    <main>
+        <% if (error) { %>
+            <div class="text-red-600">
+                <p><%= error %></p>
+            </div>
+        <% } %>
+        <% if(success) { %>
+            <div class="text-green-600">
+                <p><%= success %></p>
+            </div>
+        <% } %>
+        <div class="w-full">
+            <div class="m-6">
+                <div class="">
+                    <div class="tab w-full overflow-hidden mb-6">
+                        <input class="absolute opacity-0 " id="tab-multi-one" type="radio" name="tabs">
+                        <label class="block p-5 leading-normal cursor-pointer bg-blue-nav text-white font-bold" for="tab-multi-one">Finalités</label>
+                        <div class="tab-content overflow-hidden border-l-2 bg-blue-nav leading-normal">
+                            <div class="flex justify-end pr-5">
+                                <a href="/plansAction/index/<%= process.id_processus %>"><img class="h-12" src="/images/view.png" alt="View"></a>
+                            </div>
+                            <p class="p-5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
+                            <div class="pl-5 pb-5 text-white">
+                                <div class="mt-2 w-max">
+                                    <label class="text-white font-bold">Pilote : </label>
+                                    <label class="bg-blue-nav text-white"> <%= process.processus_relaisUser.nom_user %> </label>
+                                </div>
+                                <div class="mt-2 w-max">
+                                    <label class="text-white font-bold">E-mail : </label>
+                                    <label class="bg-blue-nav text-white"> <%= process.processus_relaisUser.email %> </label>
+                                </div>
+                                <div class="mt-2 w-max flex justify-start">
+                                    <label class="text-white font-bold">Ressource(s) : </label>
+                                    <ul class="ml-2">
+                                    <% for (var i = 0; i < process.processus_ressourceUser.length; i++) { %>
+                                        <li>
+                                            <p class="bg-blue-nav text-white "> <%= process.processus_ressourceUser[i].nom_user %> </p>
+                                        </li>
+                                    <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab w-full overflow-hidden mb-6">
+                        <input class="absolute opacity-0" id="tab-multi-two" type="radio" name="tabs">
+                        <label class="block p-5 leading-normal cursor-pointer bg-blue-nav text-white font-bold" for="tab-multi-two">Objectifs</label>
+                        <div class="tab-content overflow-hidden border-l-2 bg-blue-nav leading-normal">
+                            <div class="flex justify-end pr-5">
+                                <a href="/plansAction/index/<%= process.id_processus %>"><img class="h-12" src="/images/view.png" alt="View"></a>
+                            </div>
+                            <p class="p-5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
+                            <div class="pl-5 pb-5 text-white">
+                                <div class="mt-2 w-max">
+                                    <label class="text-white font-bold">Pilote : </label>
+                                    <label class="bg-blue-nav text-white"> <%= process.processus_relaisUser.nom_user %> </label>
+                                </div>
+                                <div class="mt-2 w-max">
+                                    <label class="text-white font-bold">E-mail : </label>
+                                    <label class="bg-blue-nav text-white"> <%= process.processus_relaisUser.email %> </label>
+                                </div>
+                                <div class="mt-2 w-max flex justify-start">
+                                    <label class="text-white font-bold">Ressource(s) : </label>
+                                    <ul class="ml-2">
+                                    <% for (var i = 0; i < process.processus_ressourceUser.length; i++) { %>
+                                        <li>
+                                            <p class="bg-blue-nav text-white "> <%= process.processus_ressourceUser[i].nom_user %> </p>
+                                        </li>
+                                    <% } %>
+                                    </ul>
+                                </div>
+                                <div class="mt-2 w-max flex justify-start">
+                                    <label class="text-white font-bold">Niveau de risque : </label>
+                                    <ul class="ml-2">
+                                        <% for (var i = 0; i < process.processus_objectifs.length; i++) { %>
+                                            <li>
+                                                <p class="bg-blue-nav text-white "> <%= process.processus_objectifs[i].objectifs_risques.risque %> </p>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab w-full overflow-hidden mb-6">
+                        <input class="absolute opacity-0" id="tab-multi-three" type="radio" name="tabs">
+                        <label class="block p-5 leading-normal cursor-pointer bg-blue-nav text-white font-bold" for="tab-multi-three">Opportunités</label>
+                        <div class="tab-content overflow-hidden border-l-2 bg-blue-nav leading-normal">
+                            <div class="flex justify-end pr-5">
+                                <a href="/plansAction/index/<%= process.id_processus %>"><img class="h-12" src="/images/view.png" alt="View"></a>
+                            </div>
+                            <p class="p-5 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, architecto, explicabo perferendis nostrum, maxime impedit atque odit sunt pariatur illo obcaecati soluta molestias iure facere dolorum adipisci eum? Saepe, itaque.</p>
+                            <div class="pl-5 pb-5 text-white">
+                                <div class="mt-2 w-max">
+                                    <label class="text-white font-bold">Pilote : </label>
+                                    <label class="bg-blue-nav text-white"> <%= process.processus_relaisUser.nom_user %> </label>
+                                </div>
+                                <div class="mt-2 w-max">
+                                    <label class="text-white font-bold">E-mail : </label>
+                                    <label class="bg-blue-nav text-white"> <%= process.processus_relaisUser.email %> </label>
+                                </div>
+                                <div class="mt-2 w-max flex justify-start">
+                                    <label class="text-white font-bold">Ressource(s) : </label>
+                                    <ul class="ml-2">
+                                    <% for (var i = 0; i < process.processus_ressourceUser.length; i++) { %>
+                                        <li>
+                                            <p class="bg-blue-nav text-white "> <%= process.processus_ressourceUser[i].nom_user %> </p>
+                                        </li>
+                                    <% } %>
+                                    </ul>
+                                </div>
+                                <div class="mt-2 w-max flex justify-start">
+                                    <label class="text-white font-bold">Niveau de risque : </label>
+                                    <ul class="ml-2">
+                                        <% for (var i = 0; i < process.processus_opportunites.length; i++) { %>
+                                            <li>
+                                                <p class="bg-blue-nav text-white "> <%= process.processus_opportunites[i].opportunites_risques.risque %> </p>
+                                            </li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+      </div>
+    </main>
+    <script>
+      /* Optional Javascript to close the radio button version by clicking it again */
+      var myRadios = document.getElementsByName('tabs');
+      var setCheck;
+      var x = 0;
+      for(x = 0; x < myRadios.length; x++){
+          myRadios[x].onclick = function(){
+              if(setCheck != this){
+                   setCheck = this;
+              }else{
+                  this.checked = false;
+                  setCheck = null;
+          }
+          };
+      }
+   </script>
+</body>
+<%- include('../../footer'); -%>

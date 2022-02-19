@@ -1,0 +1,121 @@
+<div class="flex"> <!-- cf footer -->
+    <nav class="h-screen w-1/6 bg-blue-nav">
+        <div class="flex justify-center text-white mb-8 text-xl">
+            Bonjour, <%= user.nom_user %>
+        </div>
+        <% if(user.role_id == 1) { %>
+            <!-- role admin -->
+        <div class="flex justify-center">
+            <div class="flex flex-col w-full">
+                <a href="/admin" class="font-bold text-white pl-5">DASHBOARD</a>
+                <div class="tab w-full overflow-hidden">
+                    <input class="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2">
+                    <label class="block pl-5 leading-normal cursor-pointer text-white flex items-center font-bold" for="tab-single-one"><a href="/admin/processus">PROCESSUS</a></label>
+                    <div class="tab-content overflow-hidden bg-gray-400 leading-normal text-white">
+                        <ul class="list-disc pl-10">
+                            <% for(var i=0; i < processus.length; i++ ){ %>
+                                <li><a href="/admin/processus/viewprocessus/<%= processus[i].id_processus %>"><%= processus[i].nom_processus %></a></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab w-full overflow-hidden">
+                    <input class="absolute opacity-0" id="tab-single-two" type="radio" name="tabs2">
+                    <label class="block pl-5 leading-normal cursor-pointer text-white flex items-center font-bold" for="tab-single-two"><a href="/admin/plansAction">PLAN D’AMÉLIORATION</a></label>
+                    <div class="tab-content overflow-hidden bg-gray-400 leading-normal text-white">
+                        <ul class="list-disc pl-10">
+                            <% for(var i=0; i < processus.length; i++ ){ %>
+                                <li><a href="/admin/plansAction/index/<%= processus[i].id_processus %>"><%= processus[i].nom_processus %></a></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+                <div class="">
+                    <a href="/signup" class="font-bold text-white pl-5">CREER UN UTILISATEUR</a>
+                </div>
+            </div>
+        </div>
+        <% } else if (user.role_id == 2) { %>
+            <!-- role relais -->
+            <div class="flex justify-center">
+                <div class="flex flex-col w-full">
+                    <a href="/relais/<%=user.id_user %>" class="font-bold text-white pl-5">DASHBOARD</a>
+                    <div class="tab w-full overflow-hidden">
+                        <input class="absolute opacity-0" id="tab-single-one" type="radio" name="tabs2">
+                        <label class="block pl-5 leading-normal cursor-pointer text-white flex items-center font-bold" for="tab-single-one"><a href="/relais/<%=user.id_user %>/processus">PROCESSUS</a></label>
+                        <div class="tab-content overflow-hidden bg-gray-400 leading-normal text-white">
+                            <ul class="list-disc pl-10">
+                                <% for(var i=0; i < processus.length; i++ ){ %>
+                                    <% if (processus[i].relais_user_id == user.id_user) { %>
+                                        <li><a href="/relais/<%=user.id_user %>/processus/viewprocessus/<%= processus[i].id_processus %>"><%= processus[i].nom_processus %></a></li>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab w-full overflow-hidden">
+                        <input class="absolute opacity-0" id="tab-single-two" type="radio" name="tabs2">
+                        <label class="block pl-5 leading-normal cursor-pointer text-white flex items-center font-bold" for="tab-single-two"><a href="/relais/<%=user.id_user %>/plansAction">PLAN D’AMÉLIORATION</a></label>
+                        <div class="tab-content overflow-hidden bg-gray-400 leading-normal text-white">
+                            <ul class="list-disc pl-10">
+                                <% for(var i=0; i < processus.length; i++ ){ %>
+                                    <% if (processus[i].relais_user_id == user.id_user) { %>
+                                        <li><a href="/relais/<%=user.id_user %>/plansAction/index/<%= processus[i].id_processus %>"><%= processus[i].nom_processus %></a></li>
+                                    <% } %>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } else if (user.role_id == 3) { %>
+            <!-- role classique -->
+            <div class="flex justify-center">
+                <div class="flex flex-col w-full">
+                    <div class="">
+                        <a href="/user/<%= user.id_user %>/processus" class="font-bold text-white pl-5">Processus</a>
+                    </div>
+                    <div class="">
+                        <a href="/user/<%= user.id_user %>/plansAction" class="font-bold text-white pl-5">Plans d'action</a>
+                    </div>
+
+                </div>
+            </div>
+        <% } %>
+
+        <div class="fixed bottom-0 ml-5 mb-5 text-white">
+            <a href="/logout">Déconnection</a>
+            <p>CGU</p>
+            <p>Mentions Légales</p>
+        </div>
+    </nav>
+    <div class="flex flex-col w-5/6"> <!-- cf footer -->
+        <nav class="w-full h-min bg-gray-nav flex flex-row justify-between px-6">
+            <div class="flex flex-row justify-start">
+                <img class="w-max "src="/images/itsense-bird.png" alt="bird-itsense">
+                <p class="flex items-center font-bold">Bienvenue sur la plateforme ISO !</p>
+            </div>
+            <div class="flex justify-end items-center">
+                <div class="flex justify-center items-center border-2 border-blue-nav rounded-md w-full p-2">
+                    <img class="h-5" src="/images/search.png" alt="search">
+                    <input type="text" class="h-5 w-full bg-gray-nav" name="recherche">
+                </div>
+            </div>
+        </nav>
+
+    <script>
+        /* Optional Javascript to close the radio button version by clicking it again */
+        var myRadios = document.getElementsByName('tabs2');
+        var setCheck;
+        var x = 0;
+        for(x = 0; x < myRadios.length; x++){
+            myRadios[x].onclick = function(){
+                if(setCheck != this){
+                    setCheck = this;
+                }else{
+                    this.checked = false;
+                    setCheck = null;
+                }
+            };
+        }
+    </script>

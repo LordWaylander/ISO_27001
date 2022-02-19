@@ -1,0 +1,15 @@
+<%- include('../header'); -%>
+<body>
+    <%- include('../navigation'); -%>
+    <main>
+        MODIFICATION entreprise <%= entreprise.nom_entreprise %>
+        <form class="w-full" method="post">
+            <input type="hidden" name="id_entreprise" value="<%= entreprise.id_entreprise %>">
+            <input type="text" name="nom_entreprise" value="<%= entreprise.nom_entreprise %>" placeholder="Nom entreprise" required>
+            <input type="text" name="adresse" value="<%= entreprise.adresse %>" placeholder="Adresse entreprise" required>
+            <input type="text" name="code_postal" value="<%= entreprise.code_postal %>" placeholder="Code postal entreprise" required>
+            <input type="text" name="ville" value="<%= entreprise.ville %>" placeholder="Ville entreprise" required>
+            <input type="submit" value="Envoyer">
+        </form>
+    </main>
+</body>
